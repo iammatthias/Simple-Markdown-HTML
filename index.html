@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A simple way to display Markdown content alongside HTML.">
+  <meta name="author" content="Your Name or Organization">
+  <meta name="keywords" content="Markdown, HTML, Content Rendering, SEO">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourwebsite.com/page-url">
+  <meta property="og:title" content="Simple Markdown + HTML">
+  <meta property="og:description" content="A simple way to display Markdown content alongside HTML.">
+  <meta property="og:image" content="https://placehold.co/1200x630?text=Simple%5CnMarkdown+%2B+HTML">
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://yourwebsite.com/page-url">
+  <meta property="twitter:title" content="Simple Markdown + HTML">
+  <meta property="twitter:description" content="A simple way to display Markdown content alongside HTML.">
+  <meta property="twitter:image" content="https://placehold.co/1200x630?text=Simple%5CnMarkdown+%2B+HTML">
+  
+  <title>Simple Markdown + HTML</title>
+
+  <!-- Styles adapted from https://bettermotherfuckingwebsite.com/ -->
+  <style>
+    body {
+      margin: 40px auto;
+      max-width: 650px;
+      line-height: 1.6;
+      font-size: 18px;
+      padding: 0 10px;
+      color: #1a1a1a;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.2;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    pre, code {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="markdown-container">Loading Markdown content...</div>
+
+  <!-- Include the Marked library -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    async function loadMarkdown(filePath) {
+      try {
+        const response = await fetch(filePath);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const mdText = await response.text();
+        document.getElementById('markdown-container').innerHTML = marked.parse(mdText);
+      } catch (error) {
+        console.error('Could not load the Markdown file:', error);
+        document.getElementById('markdown-container').innerHTML = `<p>Error loading Markdown content.</p>`;
+      }
+    }
+
+    // Specify the path to your Markdown file
+    loadMarkdown('./readme.md');
+  </script>
+</body>
+</html>
